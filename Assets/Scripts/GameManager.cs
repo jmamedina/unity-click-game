@@ -1,16 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public List<GameObject> targets;
-    private int spawnTime = 1;
+    private int score;
+    private float spawnTime = 1.0f;
+
+    public TextMeshProUGUI scoreText;
 
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(SpawnObject());
+        score = 0;
+        UpdateScore(0);
     }
 
     // Update is called once per frame
@@ -26,7 +32,12 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(spawnTime);
             int index = Random.Range(0, targets.Count);
             Instantiate(targets[index]);
-
         }
+    }
+
+    public void UpdateScore(int scoreToAdd)
+    {
+        score += scoreToAdd;
+        scoreText.text = "Score: " + score;
     }
 }
