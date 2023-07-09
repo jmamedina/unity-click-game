@@ -47,16 +47,16 @@ public class Target : MonoBehaviour
             Destroy(gameObject);
             Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
             gameManager.UpdateScore(pointValue);
+            if (gameObject.CompareTag("Bad"))
+            {
+                gameManager.UpdateLife(-1);
+            }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
-        if(!gameObject.CompareTag("Bad"))
-        {
-            gameManager.GameOver();
-        }
     }
 
     Vector3 RandomForce()
