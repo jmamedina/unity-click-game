@@ -19,6 +19,10 @@ public class GameManager : MonoBehaviour
     public bool isGameActive;
     public GameObject titleScreen;
 
+    //Pause screen
+    public GameObject pauseScreen;
+    private bool isPaused;
+
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +33,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            GamePaused();
+        }
     }
 
     IEnumerator SpawnObject()
@@ -79,5 +86,21 @@ public class GameManager : MonoBehaviour
         score = 0;
         UpdateScore(0);
         UpdateLife(3);
+    }
+
+    void GamePaused()
+    {
+        if(!isPaused)
+        {
+            isPaused = true;
+            pauseScreen.SetActive(true);
+            Time.timeScale = 0;
+        }
+        else
+        {
+            isPaused = false;
+            pauseScreen.SetActive(false);
+            Time.timeScale = 1;
+        }
     }
 }
